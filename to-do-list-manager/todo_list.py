@@ -1,10 +1,8 @@
 class Task:
-    def __init__(self, title, description, due_date, priority):
+    def __init__(self, title, description, status="Pending"):
         self.title = title
         self.description = description
-        self.due_date = due_date
-        self.priority = priority
-        self.completed = False
+        self.status = status
 
 class ToDoList:
     def __init__(self):
@@ -14,13 +12,21 @@ class ToDoList:
         self.tasks.append(task)
 
     def list_tasks(self):
-        for index, task in enumerate(self.tasks, start=1):
-            status = "Completed" if task.completed else "Not Completed"
-            print(f"{index}. {task.title} - {status}")
+        for task in self.tasks:
+            print(f"- {task.title} - {task.status}")
 
-    def mark_task_completed(self, task_index):
-        if 1 <= task_index <= len(self.tasks):
-            self.tasks[task_index - 1].completed = True
+    def mark_task_completed(self, title):
+        for task in self.tasks:
+            if task.title == title:
+                task.status = "Completed"
+                break
 
     def clear_tasks(self):
         self.tasks = []
+        
+        
+    def set_task_priority(self, task_index, priority):
+        if 1 <= task_index <= len(self.tasks):
+            self.tasks[task_index - 1].priority = priority
+            
+            
